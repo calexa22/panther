@@ -5,8 +5,11 @@ namespace Panther.Clients.Steam
     {
         public static class Shared
         {
+            public const string APP_ID = "appid";
             public const string KEY = "key";
+            public const string LANGUAGE = "l";
             public const string STEAM_ID = "steamid";
+            public const string STEAM_IDS = "steamids";
         }
 
         public static class PlayerService

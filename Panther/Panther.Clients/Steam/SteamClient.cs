@@ -8,11 +8,15 @@ namespace Panther.Clients.Steam
 {
     public interface ISteamClient
     {
-        Task<GetOwnedGamesResponse> GetOwnedGamesForSteamdIdAsync(string steamdId, bool includeAppInfo, bool includedPlayedFreeGames);
+        Task<GetOwnedGamesResponse> GetOwnedGamesForSteamdIdAsync(string steamId, bool includeAppInfo, bool includedPlayedFreeGames);
+        Task<GetPlayerAchievementsResponse> GetPlayerAchievementsAsync(string steam, string appId);
+        Task<GetSteamUsersResponse> GetPlayerSummariesAsync(ICollection<string> steamIds);
     }
 
     public class SteamClient : HttpClientBase, ISteamClient
     {
+        private const string ENGLISH = "english";
+
         public SteamClient(string baseUri, string token)
             : base(baseUri, token)
         {
@@ -30,16 +34,40 @@ namespace Panther.Clients.Steam
             query[SteamParams.PlayerService.INCLUDE_APPINFO] = ToQueryParamStringValue(includeAppInfo);
             query[SteamParams.PlayerService.INCLUDE_PAYED_FREE_GAMES] = ToQueryParamStringValue(includedPlayedFreeGames);
 
-            //Thanks Steam!!!
-            Dictionary<string, GetOwnedGamesResponse> thanksSteam = 
-                await GetAsync<Dictionary<string, GetOwnedGamesResponse>>(SteamRoutes.GetOwnedGames, query);
+            return await PraiseGabenAsync<GetOwnedGamesResponse>(SteamRoutes.GetOwnedGames, query);
+        }
 
-            if (thanksSteam.Any())
+        public async Task<GetPlayerAchievementsResponse> GetPlayerAchievementsAsync(string steamId, string appId)
+        {
+            Dictionary<string, string> query = GetDefaultSteamQueryParams();
+
+            query[SteamParams.Shared.STEAM_ID] = ToQueryParamStringValue(steamId);
+            query[SteamParams.Shared.APP_ID] = ToQueryParamStringValue(appId);
+            query[SteamParams.Shared.LANGUAGE] = ToQueryParamStringValue(ENGLISH);
+
+            return await PraiseGabenAsync<GetPlayerAchievementsResponse>(SteamRoutes.GetPlayerAchievements, query);
+        }
+
+        public async Task<GetSteamUsersResponse> GetPlayerSummariesAsync(ICollection<string> steamIds)
+        {
+            Dictionary<string, string> query = GetDefaultSteamQueryParams();
+
+            query[SteamParams.Shared.STEAM_IDS] = ToQueryParamStringValue(steamIds);
+
+            return await PraiseGabenAsync<GetSteamUsersResponse>(SteamRoutes.GetPlayerSummaries, query);
+        }
+        
+        private async Task<T> PraiseGabenAsync<T>(string url, Dictionary<string, string> query) where T : new()
+        {
+            Dictionary<string, T> responseDictionary =
+                await GetAsync<Dictionary<string, T>>(url, query);
+
+            if (responseDictionary.Any())
             {
-                return thanksSteam.Single().Value;
+                return responseDictionary.Single().Value;
             }
 
-            return new GetOwnedGamesResponse();
+            return new T();
         }
 
         private Dictionary<string, string> GetDefaultSteamQueryParams()
@@ -60,6 +88,10 @@ namespace Panther.Clients.Steam
             else if (arg is bool)
             {
                 return ((bool)arg) ? "1" : "0";
+            }
+            else if (arg is ICollection<string>)
+            {
+                return string.Join(',', (ICollection<string>)arg);
             }
 
             throw new NotImplementedException($"{arg.GetType()} not yet implemented for ToQueryParamStringValue.");
