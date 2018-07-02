@@ -22,7 +22,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Panther.Clients\Panther.Clients.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Controllers\ValuesController.cs" />
-  </ItemGroup>
 </Project>
