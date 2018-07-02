@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panther.Web", "Panther.Web\Panther.Web.csproj", "{152728C3-CA5B-401A-A1C9-7241B193F4FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panther.Clients", "Panther.Clients\Panther.Clients.csproj", "{BF660DE7-9A4D-4670-8D12-F47DFA1428AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panther.Clients", "Panther.Clients\Panther.Clients.csproj", "{1F45F4F1-BE9F-40D0-91E7-ED878D89F800}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +15,9 @@ Global
 		{152728C3-CA5B-401A-A1C9-7241B193F4FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{152728C3-CA5B-401A-A1C9-7241B193F4FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{152728C3-CA5B-401A-A1C9-7241B193F4FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF660DE7-9A4D-4670-8D12-F47DFA1428AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF660DE7-9A4D-4670-8D12-F47DFA1428AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF660DE7-9A4D-4670-8D12-F47DFA1428AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF660DE7-9A4D-4670-8D12-F47DFA1428AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F45F4F1-BE9F-40D0-91E7-ED878D89F800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F45F4F1-BE9F-40D0-91E7-ED878D89F800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F45F4F1-BE9F-40D0-91E7-ED878D89F800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F45F4F1-BE9F-40D0-91E7-ED878D89F800}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

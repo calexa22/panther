@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using Panther.Web.DependencyInjection;
 
 namespace Panther.Web
 {
@@ -24,6 +25,10 @@ namespace Panther.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IConfiguration>(Configuration);
+
+            services.ConfigureInternalDependencies(Configuration);
+
             services.AddMvc();
             services.AddSwaggerGen(opt =>
             {
