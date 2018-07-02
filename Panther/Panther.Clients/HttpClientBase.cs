@@ -38,7 +38,6 @@ namespace Panther.Clients
                     throw new ApiException((int)response.StatusCode);
                 }
 
-                //var stringT = await response.Content.ReadAsStringAsync();
                 using (Stream content = await response.Content.ReadAsStreamAsync())
                 {
                     return DeserializeJsonFromStream<T>(content);
