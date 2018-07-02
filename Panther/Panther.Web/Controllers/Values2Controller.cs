@@ -25,7 +25,7 @@ namespace Panther.Web.Controllers
             var steamClient = _steamClient;
 
             GetOwnedGamesResponse response = await _steamClient.GetOwnedGamesForSteamdIdAsync(steamId, true, true);
-            response.Games = response.Games.OrderByDescending(game => game.Name).ToList();
+            response.Games = response.Games.OrderBy(game => game.Name).ToList();
 
             return Ok(response);
         }
