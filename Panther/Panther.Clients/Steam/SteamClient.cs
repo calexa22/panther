@@ -8,7 +8,7 @@ namespace Panther.Clients.Steam
 {
     public interface ISteamClient
     {
-        Task<GetOwnedGamesResponse> GetOwnedGamesForSteamdId(string steamdId, bool includeAppInfo, bool includedPlayedFreeGames);
+        Task<GetOwnedGamesResponse> GetOwnedGamesForSteamdIdAsync(string steamdId, bool includeAppInfo, bool includedPlayedFreeGames);
     }
 
     public class SteamClient : HttpClientBase, ISteamClient
@@ -22,7 +22,7 @@ namespace Panther.Clients.Steam
 
         public string ApiKey { get; private set;}
 
-        public async Task<GetOwnedGamesResponse> GetOwnedGamesForSteamdId(string steamId, bool includeAppInfo, bool includedPlayedFreeGames)
+        public async Task<GetOwnedGamesResponse> GetOwnedGamesForSteamdIdAsync(string steamId, bool includeAppInfo, bool includedPlayedFreeGames)
         {
             Dictionary<string, string> query = GetDefaultSteamQueryParams();
 
