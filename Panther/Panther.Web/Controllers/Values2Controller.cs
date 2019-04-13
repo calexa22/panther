@@ -42,7 +42,7 @@ namespace Panther.Web.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(SteamUser), 200)]
         [Route("users/{steamId}")]
-        public async Task<IActionResult> GetPlayerSummary(string steamId)
+        public async Task<IActionResult> GetPlayerSummaryAsync(string steamId)
         {
             GetSteamUsersResponse response = await _steamClient.GetPlayerSummariesAsync(steamId);
 
