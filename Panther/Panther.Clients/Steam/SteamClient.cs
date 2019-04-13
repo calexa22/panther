@@ -10,7 +10,7 @@ namespace Panther.Clients.Steam
     {
         Task<GetOwnedGamesResponse> GetOwnedGamesForSteamdIdAsync(string steamId, bool includeAppInfo, bool includedPlayedFreeGames);
         Task<GetPlayerAchievementsResponse> GetPlayerAchievementsAsync(string steam, string appId);
-        Task<GetSteamUsersResponse> GetPlayerSummariesAsync(ICollection<string> steamIds);
+        Task<GetSteamUsersResponse> GetPlayerSummariesAsync(string steamId);
     }
 
     public class SteamClient : HttpClientBase, ISteamClient
@@ -48,13 +48,13 @@ namespace Panther.Clients.Steam
             return await PraiseGabenAsync<GetPlayerAchievementsResponse>(SteamRoutes.GetPlayerAchievements, query);
         }
 
-        public async Task<GetSteamUsersResponse> GetPlayerSummariesAsync(ICollection<string> steamIds)
+        public async Task<GetSteamUsersResponse> GetPlayerSummariesAsync(string steamId)
         {
             Dictionary<string, string> query = GetDefaultSteamQueryParams();
 
-            query[SteamParams.Shared.STEAM_IDS] = ToQueryParamStringValue(steamIds);
+            query[SteamParams.Shared.STEAM_IDS] = ToQueryParamStringValue(steamId);
 
-            return await PraiseGabenAsync<GetSteamUsersResponse>(SteamRoutes.GetPlayerSummaries, query);
+            return await PraiseGabenAsync<GetSteamUsersResponse>(SteamRoutes.GetPlayerSummariesV2, query);
         }
         
         private async Task<T> PraiseGabenAsync<T>(string url, Dictionary<string, string> query) where T : new()

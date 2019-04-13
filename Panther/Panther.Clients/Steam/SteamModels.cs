@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Panther.Clients.Steam
 {
     public class OwnedGame
     {
+        [JsonProperty("appid")]
         public int AppId { get; set; }
+        [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("playtime_forever")]
         public int PlayTimeForeverMinutes { get; set; }
@@ -53,7 +56,7 @@ namespace Panther.Clients.Steam
         public ICollection<Achievement> Achievements;
     }
 
-    public enum ProfileStatusEnum
+    public enum PersonaStateEnum
     {
         Offline = 1,
         Online = 2,
@@ -65,9 +68,11 @@ namespace Panther.Clients.Steam
 
     public class SteamUser
     {
+        [JsonProperty("steamid")]
         public string SteamId { get; set; }
         [JsonProperty("personaname")]
         public string DisplayName { get; set; }
+        [JsonProperty("profileurl")]
         public string ProfileUrl { get; set; }
 
         [JsonProperty("avatar")]
@@ -77,15 +82,21 @@ namespace Panther.Clients.Steam
         [JsonProperty("avatarfull")]
         public string FullAvatarUrl { get; set; }
 
+        // This will always return 0 if profile is considered
+        // "private." Private data will not be shown
+        // if profile is marked as 'Friends Only' or 'Private'
+
         [JsonProperty("personastate")]
-        public ProfileStatusEnum ProfileStatus { get; set; }
+        public int PersonaState { get; set; }
+
         [JsonProperty("lastlogoff")]
         public string LastLogOffUnixStamp { get; set; }
 
-        // the following are private fields according to
+        // The following are private fields according to
         // Steam API docs. Private data will not be shown
-        // if porifle is marked as 'Friends Only' or 'Private'
+        // if profile is marked as 'Friends Only' or 'Private'
 
+        [JsonProperty("realname")]
         public string RealName { get; set; }
         [JsonProperty("timecreated")]
         public string AccountCreatedAtUnixStamp { get; set; }

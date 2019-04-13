@@ -8,6 +8,7 @@ using Panther.Clients.Steam;
 namespace Panther.Web.Controllers
 {
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class Values2Controller : Controller
     {
         private readonly ISteamClient _steamClient;
@@ -43,7 +44,7 @@ namespace Panther.Web.Controllers
         [Route("users/{steamId}")]
         public async Task<IActionResult> GetPlayerSummary(string steamId)
         {
-            GetSteamUsersResponse response = await _steamClient.GetPlayerSummariesAsync(new List<string> { steamId });
+            GetSteamUsersResponse response = await _steamClient.GetPlayerSummariesAsync(steamId);
 
             return Ok(response.Players.First());
         }
